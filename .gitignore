@@ -41,3 +41,5 @@ media/*
 .mr.developer.cfg
 .project
 .pydevproject
+.idea/*
+.idea
