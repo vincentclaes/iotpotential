@@ -107,7 +107,7 @@ on the body:
 View:
 from flask_googlemaps import Map
 
-@app.route("/")
+@app.route('/fullmap')
 def mapview():
     mymap = Map(
         identifier="cluster-map",
@@ -165,7 +165,7 @@ in body:
 View:
 from flask_googlemaps import Map
 
-@app.route("/")
+@app.route('/fullmap')
 def mapview():
     mymap = Map(
         identifier="view-side",
@@ -197,7 +197,7 @@ in body:
 View:
 from flask_googlemaps import Map, icons
 
-@app.route("/")
+@app.route('/fullmap')
 def mapview():
     sndmap = Map(
         identifier="sndmap",
@@ -232,7 +232,7 @@ in body:
 View:
 from flask_googlemaps import Map, icons
 
-@app.route("/")
+@app.route('/fullmap')
 def mapview():
     trdmap = Map(
         identifier="trdmap",
@@ -305,7 +305,7 @@ in body:
 View:
 from flask_googlemaps import Map, icons
 
-@app.route("/")
+@app.route('/fullmap')
 def mapview():
     collapsible = Map(
         identifier="collapsible",
