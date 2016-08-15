@@ -51,7 +51,7 @@ def fullmap():
           }
         ]
     )
-     LocationHistory.write_history()
+     #LocationHistory.write_history()
     return render_template('example_fullmap.html', mymap=mymap, sndmap=sndmap)
    
   
