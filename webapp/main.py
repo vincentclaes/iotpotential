@@ -15,7 +15,7 @@ app.config['GOOGLEMAPS_KEY'] = "AIzaSyAZzeHhs-8JZ7i18MjFuM35dJHq70n3Hx4"
 GoogleMaps(app, key="AIzaSyAZzeHhs-8JZ7i18MjFuM35dJHq70n3Hx4")
 
 
-@app.route('/fullmap')
+@app.route('/')
 def fullmap():
     try:
         fullmap = Map(
