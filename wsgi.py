@@ -1,6 +1,6 @@
 #!/usr/bin/python
 import os
-
+from iotpotential.location import (Location, LastSeenLocation, LocationHistory)
 virtenv = os.environ['OPENSHIFT_PYTHON_DIR'] + '/virtenv/'
 virtualenv = os.path.join(virtenv, 'bin/activate_this.py')
 try:
