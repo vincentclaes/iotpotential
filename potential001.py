@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, render_template, request, redirect
 from flask_googlemaps import GoogleMaps
 from flask_googlemaps import Map, icons
 from iotpotential.location import (Location, LastSeenLocation, LocationHistory)
@@ -50,9 +50,6 @@ def fullmap():
 
     finally:
         LocationHistory.write_history()
-
-
-
 
 if __name__ == '__main__':
     l = Location()
