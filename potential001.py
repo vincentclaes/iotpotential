@@ -51,10 +51,10 @@ def fullmap():
           }
         ]
     )
+     LocationHistory.write_history()
     return render_template('example_fullmap.html', mymap=mymap, sndmap=sndmap)
    
-   LocationHistory.write_history()
-
+  
 
 if __name__ == '__main__':
 	l = Location()
