@@ -8,7 +8,7 @@ app = Flask(__name__, template_folder="templates")
 
 
 # you can set key as config
-app.config['GOOGLEMAPS_KEY'] = "8JZ7i18MjFuM35dJHq70n3Hx4"
+app.config['GOOGLEMAPS_KEY'] = "AIzaSyDigFY04sXaaKV59x_-qR4tq5oCxcZwaYs"
 
 # Initialize the extension
 GoogleMaps(app)
