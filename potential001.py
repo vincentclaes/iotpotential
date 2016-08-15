@@ -25,9 +25,12 @@ def fullmap():
     # creating a map in the view
     mymap = Map(
         identifier="view-side",
-        lat=37.4419,
-        lng=-122.1419,
-        markers=[(37.4419, -122.1419)]
+        #lat=37.4419,
+        #lng=-122.1419,
+        lat=LastSeenLocation.latitude,
+        lng=LastSeenLocation.longitude,
+        #markers=[(37.4419, -122.1419)]
+        polylines=[LocationHistory.location_history]
     )
     sndmap = Map(
         identifier="sndmap",
@@ -49,7 +52,12 @@ def fullmap():
         ]
     )
     return render_template('example_fullmap.html', mymap=mymap, sndmap=sndmap)
+   
+   LocationHistory.write_history()
+
 
 if __name__ == '__main__':
-  
+	l = Location()
+    t = Thread(target=l.continuously_get_current_location)
+    t.start()
     app.run(debug=True, use_reloader=True)
