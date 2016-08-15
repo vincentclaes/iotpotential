@@ -22,41 +22,34 @@ def googleverification():
 
 @app.route('/fullmap')
 def fullmap():
-    try:
-        fullmap = Map(
-            identifier="fullmap",
-            varname="fullmap",
-            style=(
-                "height:100%;"
-                "width:100%;"
-                "top:0;"
-                "left:0;"
-                "position:absolute;"
-                "z-index:200;"
-            ),
-            lat=LastSeenLocation.latitude,
-            lng=LastSeenLocation.longitude,
-            # markers=[
-            #     LastSeenLocation.location_history
-            # ],
-            # polylines={
-            #     'stroke_color': '#0066ff',
-            #     'stroke_opacity': 1.0,
-            #     'stroke_weight': 3,
-            #     'path': LastSeenLocation.location_history
-            # }
-
-            # maptype = "TERRAIN",
-            # zoom="5"
-            polylines=[LocationHistory.location_history]
-        )
-        return render_template('example_fullmap.html', fullmap=fullmap)
-
-    finally:
-        LocationHistory.write_history()
+    # creating a map in the view
+    mymap = Map(
+        identifier="view-side",
+        lat=37.4419,
+        lng=-122.1419,
+        markers=[(37.4419, -122.1419)]
+    )
+    sndmap = Map(
+        identifier="sndmap",
+        lat=37.4419,
+        lng=-122.1419,
+        markers=[
+          {
+             'icon': 'http://maps.google.com/mapfiles/ms/icons/green-dot.png',
+             'lat': 37.4419,
+             'lng': -122.1419,
+             'infobox': "<b>Hello World</b>"
+          },
+          {
+             'icon': 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png',
+             'lat': 37.4300,
+             'lng': -122.1400,
+             'infobox': "<b>Hello World from other place</b>"
+          }
+        ]
+    )
+    return render_template('example.html', mymap=mymap, sndmap=sndmap)
 
 if __name__ == '__main__':
-    l = Location()
-    t = Thread(target=l.continuously_get_current_location)
-    t.start()
+  
     app.run(debug=True, use_reloader=True)
