@@ -25,6 +25,6 @@ setup(
         'Topic :: Internet :: WWW/HTTP :: Dynamic Content',
         'Topic :: Software Development :: Libraries :: Python Modules'
     ],
-    install_requires=['Flask'],
+    install_requires=['Flask','flask-googlemaps', 'unirest'],
     packages=find_packages()
 )
