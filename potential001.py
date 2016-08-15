@@ -4,7 +4,7 @@ from flask_googlemaps import Map, icons
 from iotpotential.location import (Location, LastSeenLocation, LocationHistory)
 from threading import Thread
 
-app = Flask(__name__, template_folder="templates")
+
 
 
 # you can set key as config
@@ -13,7 +13,7 @@ app.config['GOOGLEMAPS_KEY'] = "AIzaSyDigFY04sXaaKV59x_-qR4tq5oCxcZwaYs"
 # Initialize the extension
 GoogleMaps(app)
 
-
+app = Flask(__name__, template_folder="templates")
 
 @app.route('/google8119fc9c07d90f07.html')
 def googleverification():
