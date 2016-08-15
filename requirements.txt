@@ -1,2 +1,6 @@
---index-url https://pypi.python.org/simple/
--e .
+Flask
+flask-googlemaps
+unirest
+gunicorn
+Jinja2
+Werkzeug
