@@ -7,8 +7,11 @@ from threading import Thread
 app = Flask(__name__, template_folder="templates")
 
 
-GoogleMaps(app, key="AIzaSyDigFY04sXaaKV59x_-qR4tq5oCxcZwaYs")
+# you can set key as config
+app.config['GOOGLEMAPS_KEY'] = "8JZ7i18MjFuM35dJHq70n3Hx4"
 
+# Initialize the extension
+GoogleMaps(app)
 
 
 
