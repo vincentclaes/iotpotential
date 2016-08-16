@@ -53,7 +53,9 @@ class LocationHistory(object):
 
     def __init__(self):
         LocationHistory.location_history = LocationHistory.read_history()
-
+        LocationHistory.location_history
+        LastSeenLocation.latitude = LocationHistory.location_history[-1][0]
+        LastSeenLocation.longitude = LocationHistory.location_history[-1][1]
     @staticmethod
     def read_history(file_path=LOCATION_HISTORY):
         with open(file_path, 'r') as f:

@@ -1,0 +1,6 @@
+.idea
+.idea/*
+.idea/
+iotpotential/__init__.pyc
+iotpotential/api_gateway.pyc
+iotpotential/location.pyc

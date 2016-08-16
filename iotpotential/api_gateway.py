@@ -11,7 +11,7 @@ class ApiGateway(object):
     AUTH_URL = 'https://login.enabling.be/oauth2/token'
     CONSUMER_KEY = 'mKPCKnzKW4j8eVh4WaEmR3qlhwQa'
     CONSUMER_SECRET = 'uVzpRK57MizQ7aNN_0LL8M3avR4a'
-    SESSION_TOKEN = '1cfa6ae8ac38b87fee124a1443671f'
+    SESSION_TOKEN = 'dd53ebdb3fbff4115bdc9ff383fe7bc8'
     DEVICE_ID = '1C8779C0000000C9'
 
     def __init__(self):
