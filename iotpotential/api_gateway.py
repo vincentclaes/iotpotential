@@ -11,7 +11,7 @@ class ApiGateway(object):
     AUTH_URL = 'https://login.enabling.be/oauth2/token'
     CONSUMER_KEY = 'mKPCKnzKW4j8eVh4WaEmR3qlhwQa'
     CONSUMER_SECRET = 'uVzpRK57MizQ7aNN_0LL8M3avR4a'
-    SESSION_TOKEN = 'dd53ebdb3fbff4115bdc9ff383fe7bc8'
+    ACCESS_TOKEN = '24a1cb8083b7f9b3d38182c585644e0'
     DEVICE_ID = '1C8779C0000000C9'
 
     def __init__(self):
@@ -39,7 +39,7 @@ class ApiGateway(object):
     def get_current_location():
         uri = '{0}/{1}/{2}/{3}'.format(ApiGateway.BASE_URL,'device',ApiGateway.DEVICE_ID , 'location')
         headers = {'Accept': 'application/json', 'Content-Type': 'application/x-www-form-urlencoded',
-                   'Authorization': 'Bearer ' + ApiGateway.SESSION_TOKEN}
+                   'Authorization': 'Bearer ' + ApiGateway.ACCESS_TOKEN}
         response = unirest.get(uri, headers=headers)
         if response.code == 200:
             #print response.body
