@@ -4,6 +4,7 @@ import os
 import time
 
 from api_gateway import ApiGateway
+from static import icons
 
 logging.getLogger()
 current_dir = os.path.dirname(__file__)
@@ -21,16 +22,12 @@ class Location(object):
     def update_current_location(self, location):
         _lat = location.get('latitude')
         _long = location.get('longitude')
-        if LastSeenLocation.latitude and LastSeenLocation.longitude is not None:
+        if _lat != 0.0 and _long != 0.0:
             if _lat != LastSeenLocation.latitude or _long != LastSeenLocation.longitude:
                 LastSeenLocation.set_last_seen_location(_lat, _long)
-                self.lh.location_history.append([LastSeenLocation.latitude, LastSeenLocation.longitude])
+                LocationHistory.lh.append_coordinates(LastSeenLocation.latitude, LastSeenLocation.longitude)
+                LocationHistory.lh.append_marker(LastSeenLocation.latitude, LastSeenLocation.longitude)
                 logging.info('update location : lat {0}, long {1}'.format(_lat, _long))
-        else:
-            LastSeenLocation.set_last_seen_location(_lat, _long)
-            self.lh.location_history.append([LastSeenLocation.latitude, LastSeenLocation.longitude])
-            logging.info('update location : lat {0}, long {1}'.format(_lat, _long))
-
 
     def get_current_location(self):
         current_location = ApiGateway.get_current_location()
@@ -48,14 +45,31 @@ class LastSeenLocation(object):
 
 
 class LocationHistory(object):
-    LOCATION_HISTORY = os.path.join(current_dir,'location_history.json')
-    location_history = None
+    LOCATION_HISTORY = os.path.join(current_dir, 'location_history.json')
+    location_history = []
+    marker_history = []
 
     def __init__(self):
-        LocationHistory.location_history = LocationHistory.read_history()
-        LocationHistory.location_history
+        history = LocationHistory.read_history()
+        LocationHistory.location_history = history
+        LocationHistory.marker_history = history
         LastSeenLocation.latitude = LocationHistory.location_history[-1][0]
         LastSeenLocation.longitude = LocationHistory.location_history[-1][1]
+        #LocationHistory.append_marker(LastSeenLocation.latitude, LastSeenLocation.longitude)
+
+    @staticmethod
+    def append_coordinates(latitude, longitude):
+        LocationHistory.location_history.append([latitude, longitude])
+
+    @staticmethod
+    def append_marker(latitude, longitude):
+        LocationHistory.marker_history.append({
+            'icon': icons.dots.red,
+            'lat': latitude,
+            'lng': longitude,
+            'infobox': 'lat:{0}, lng:{1}. #{2}'.format(latitude, longitude, len(LocationHistory.marker_history)+1)
+        })
+
     @staticmethod
     def read_history(file_path=LOCATION_HISTORY):
         with open(file_path, 'r') as f:
@@ -65,7 +79,7 @@ class LocationHistory(object):
     def write_history(file_path=LOCATION_HISTORY):
         timestr = time.strftime("%Y%m%d-%H%M%S")
         _file_path, ext = os.path.splitext(file_path)
-        file_path_time_based = _file_path + '-'+timestr + ext
+        file_path_time_based = _file_path + '-' + timestr + ext
         with open(file_path_time_based, 'w') as f:
             json.dump(LocationHistory.location_history, f)
         with open(file_path, 'r+') as f:

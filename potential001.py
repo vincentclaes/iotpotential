@@ -31,34 +31,15 @@ def fullmap():
         lat=50.879044,
         #lng=LastSeenLocation.longitude,
         lng=4.701482,
-        # markers=[
-        #     {
-        #         'icon': '//maps.google.com/mapfiles/ms/icons/green-dot.png',
-        #         'lat': 37.4419,
-        #         'lng': -122.1419,
-        #         'infobox': "Hello I am <b style='color:green;'>GREEN</b>!"
-        #     },
-        #     {
-        #         'icon': '//maps.google.com/mapfiles/ms/icons/blue-dot.png',
-        #         'lat': 37.4300,
-        #         'lng': -122.1400,
-        #         'infobox': "Hello I am <b style='color:blue;'>BLUE</b>!"
-        #     },
-        #     {
-        #         'icon': icons.dots.yellow,
-        #         'title': 'Click Here',
-        #         'lat': 37.4500,
-        #         'lng': -122.1350,
-        #         'infobox': (
-        #             "Hello I am <b style='color:#ffcc00;'>YELLOW</b>!"
-        #             "<h2>It is HTML title</h2>"
-        #             "<img src='//placehold.it/50'>"
-        #             "<br>Images allowed!"
-        #         )
-        #     }
-        # ],
-        # maptype = "TERRAIN",
-        # zoom="5"
+        markers=LocationHistory.location_history,
+        polylines=[{
+            'stroke_color': ' #dd4b39',
+            'stroke_opacity': 1.0,
+            'stroke_weight': 3,
+            'path': LocationHistory.location_history,
+            'infobox': 'This is a polygon'
+        }]
+
     )
     return render_template('example_fullmap.html', fullmap=fullmap)
 
