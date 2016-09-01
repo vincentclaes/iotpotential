@@ -1,6 +1,6 @@
 Flask
 flask-googlemaps
-unirest
+requests
 gunicorn
 Jinja2
 Werkzeug

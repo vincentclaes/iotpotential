@@ -25,8 +25,8 @@ class Location(object):
         if _lat != 0.0 and _long != 0.0:
             if _lat != LastSeenLocation.latitude or _long != LastSeenLocation.longitude:
                 LastSeenLocation.set_last_seen_location(_lat, _long)
-                LocationHistory.lh.append_coordinates(LastSeenLocation.latitude, LastSeenLocation.longitude)
-                LocationHistory.lh.append_marker(LastSeenLocation.latitude, LastSeenLocation.longitude)
+                LocationHistory.append_coordinates(LastSeenLocation.latitude, LastSeenLocation.longitude)
+                LocationHistory.append_marker(LastSeenLocation.latitude, LastSeenLocation.longitude)
                 logging.info('update location : lat {0}, long {1}'.format(_lat, _long))
 
     def get_current_location(self):
@@ -53,9 +53,10 @@ class LocationHistory(object):
         history = LocationHistory.read_history()
         LocationHistory.location_history = history
         LocationHistory.marker_history = history
-        LastSeenLocation.latitude = LocationHistory.location_history[-1][0]
-        LastSeenLocation.longitude = LocationHistory.location_history[-1][1]
-        #LocationHistory.append_marker(LastSeenLocation.latitude, LastSeenLocation.longitude)
+        if history:
+            LastSeenLocation.latitude = LocationHistory.location_history[-1][0]
+            LastSeenLocation.longitude = LocationHistory.location_history[-1][1]
+        # LocationHistory.append_marker(LastSeenLocation.latitude, LastSeenLocation.longitude)
 
     @staticmethod
     def append_coordinates(latitude, longitude):
@@ -67,7 +68,7 @@ class LocationHistory(object):
             'icon': icons.dots.red,
             'lat': latitude,
             'lng': longitude,
-            'infobox': 'lat:{0}, lng:{1}. #{2}'.format(latitude, longitude, len(LocationHistory.marker_history)+1)
+            'infobox': 'lat:{0}, lng:{1}. #{2}'.format(latitude, longitude, len(LocationHistory.marker_history) + 1)
         })
 
     @staticmethod

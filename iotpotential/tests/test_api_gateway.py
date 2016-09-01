@@ -1,5 +1,7 @@
 import unittest
-from my_examples.iotpotential.api_gateway import ApiGateway
+
+from iotpotential.api_gateway import ApiGateway
+
 
 class MyTestCase(unittest.TestCase):
     def test_authenticate(self):
@@ -7,7 +9,10 @@ class MyTestCase(unittest.TestCase):
         self.assertEqual(True, False)
 
     def test_get_location(self):
-        ApiGateway().get_current_location()
+        result = ApiGateway().get_current_location()
+        self.assertIsNotNone(result.get('latitude'))
+        self.assertIsNotNone(result.get('altitude'))
+        self.assertIsNotNone(result.get('longitude'))
 
 
 if __name__ == '__main__':
