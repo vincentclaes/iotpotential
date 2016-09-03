@@ -3,9 +3,9 @@
 from flask import Flask, render_template
 from flask_googlemaps import GoogleMaps
 from flask_googlemaps import Map, icons
-from iotpotential.location import (Location, LastSeenLocation, LocationHistory)
+from iotpotential.location import LocationHistory
+from iotpotential.location import Location
 from threading import Thread
-
 app = Flask(__name__, template_folder="templates")
 
 # you can set key as config
