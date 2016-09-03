@@ -26,7 +26,7 @@ class Location(object):
             if _lat != LastSeenLocation.latitude or _long != LastSeenLocation.longitude:
                 LastSeenLocation.set_last_seen_location(_lat, _long)
                 LocationHistory.append_coordinates(LastSeenLocation.latitude, LastSeenLocation.longitude)
-                LocationHistory.append_marker(LastSeenLocation.latitude, LastSeenLocation.longitude)
+                #LocationHistory.append_marker(LastSeenLocation.latitude, LastSeenLocation.longitude)
                 logging.info('update location : lat {0}, long {1}'.format(_lat, _long))
 
     def get_current_location(self):
@@ -56,7 +56,6 @@ class LocationHistory(object):
         if history:
             LastSeenLocation.latitude = LocationHistory.location_history[-1][0]
             LastSeenLocation.longitude = LocationHistory.location_history[-1][1]
-        # LocationHistory.append_marker(LastSeenLocation.latitude, LastSeenLocation.longitude)
 
     @staticmethod
     def append_coordinates(latitude, longitude):

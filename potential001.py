@@ -27,17 +27,15 @@ def fullmap():
             "position:absolute;"
             "z-index:200;"
         ),
-        #lat=LastSeenLocation.latitude,
         lat=50.879044,
-        #lng=LastSeenLocation.longitude,
         lng=4.701482,
-        markers=LocationHistory.location_history
-        # polylines=[{
-        #     'stroke_color': ' #dd4b39',
-        #     'stroke_opacity': 1.0,
-        #     'stroke_weight': 3,
-        #     'path': LocationHistory.location_history
-        # }]
+        markers=LocationHistory.location_history,
+        polylines=[{
+            'stroke_color': ' #dd4b39',
+            'stroke_opacity': 1.0,
+            'stroke_weight': 3,
+            'path': LocationHistory.location_history
+        }]
 
     )
     return render_template('example_fullmap.html', fullmap=fullmap)
