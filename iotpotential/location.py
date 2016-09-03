@@ -30,6 +30,7 @@ class Location(object):
                 logging.info('update location : lat {0}, long {1}'.format(_lat, _long))
 
     def get_current_location(self):
+        logging.info('last location : {}'.format(LocationHistory.location_history))
         current_location = ApiGateway.get_current_location()
         self.update_current_location(current_location)
 
@@ -47,12 +48,12 @@ class LastSeenLocation(object):
 class LocationHistory(object):
     LOCATION_HISTORY = os.path.join(current_dir, 'location_history.json')
     location_history = []
-    marker_history = []
+    #marker_history = []
 
     def __init__(self):
         history = LocationHistory.read_history()
         LocationHistory.location_history = history
-        LocationHistory.marker_history = history
+        #LocationHistory.marker_history = history
         if history:
             LastSeenLocation.latitude = LocationHistory.location_history[-1][0]
             LastSeenLocation.longitude = LocationHistory.location_history[-1][1]
