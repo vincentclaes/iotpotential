@@ -30,7 +30,7 @@ class Location(object):
                 logging.info('update location : lat {0}, long {1}'.format(_lat, _long))
 
     def get_current_location(self):
-        logging.info('last location : {}'.format(LocationHistory.location_history))
+        print('last location : {}'.format(LocationHistory.location_history))
         current_location = ApiGateway.get_current_location()
         self.update_current_location(current_location)
 

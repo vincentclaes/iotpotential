@@ -16,7 +16,7 @@ class ApiGateway(object):
     AUTH_URL = 'https://login.enabling.be/oauth2/token'
     # CONSUMER_KEY = 'mKPCKnzKW4j8eVh4WaEmR3qlhwQa'
     # CONSUMER_SECRET = 'uVzpRK57MizQ7aNN_0LL8M3avR4a'
-    ACCESS_TOKEN = 'feccec1a035b0ec11fa426af371ac9f'
+    ACCESS_TOKEN = None
     DEVICE_ID = '1C8779C0000000C9'
 
     @staticmethod
