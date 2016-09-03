@@ -6,9 +6,17 @@ import time
 from api_gateway import ApiGateway
 from static import icons
 
-logging.getLogger()
+logger = logging.getLogger()
+logger.setLevel(logging.DEBUG)
 current_dir = os.path.dirname(__file__)
 
+ch = logging.StreamHandler()
+ch.setLevel(logging.DEBUG)
+# create formatter and add it to the handlers
+formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+ch.setFormatter(formatter)
+# add the handlers to the logger
+logger.addHandler(ch)
 
 class Location(object):
     def __init__(self):
@@ -27,10 +35,10 @@ class Location(object):
                 LastSeenLocation.set_last_seen_location(_lat, _long)
                 LocationHistory.append_coordinates(LastSeenLocation.latitude, LastSeenLocation.longitude)
                 #LocationHistory.append_marker(LastSeenLocation.latitude, LastSeenLocation.longitude)
-                logging.info('update location : lat {0}, long {1}'.format(_lat, _long))
+                logger.info('update location : lat {0}, long {1}'.format(_lat, _long))
 
     def get_current_location(self):
-        print('last location : {}'.format(LocationHistory.location_history))
+        logger.info('last location : {}'.format(LocationHistory.location_history))
         current_location = ApiGateway.get_current_location()
         self.update_current_location(current_location)
 

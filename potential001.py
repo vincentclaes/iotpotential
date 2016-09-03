@@ -38,7 +38,6 @@ def fullmap():
         }]
 
     )
-    print('last location : {}'.format(LocationHistory.location_history))
     return render_template('example_fullmap.html', fullmap=fullmap)
 
 
