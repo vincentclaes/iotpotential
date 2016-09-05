@@ -2,22 +2,22 @@ import json
 
 import requests
 
+
 class AuthenticationException(Exception):
     pass
+
 
 class ApiGatewayException(Exception):
     pass
 
 
 class ApiGateway(object):
-
     BASE_URL = 'https://api.enabling.be/seaas/0.0.1'
     AUTH_URL = 'https://login.enabling.be/oauth2/token'
     # CONSUMER_KEY = 'mKPCKnzKW4j8eVh4WaEmR3qlhwQa'
     # CONSUMER_SECRET = 'uVzpRK57MizQ7aNN_0LL8M3avR4a'
     ACCESS_TOKEN = None
     DEVICE_ID = '1C8779C0000000C9'
-
 
     def __init__(self):
         pass

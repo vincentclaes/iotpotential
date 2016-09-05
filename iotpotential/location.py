@@ -18,6 +18,7 @@ ch.setFormatter(formatter)
 # add the handlers to the logger
 logger.addHandler(ch)
 
+
 class Location(object):
     def __init__(self):
         self.lh = LocationHistory()
@@ -34,7 +35,7 @@ class Location(object):
             if _lat != LastSeenLocation.latitude or _long != LastSeenLocation.longitude:
                 LastSeenLocation.set_last_seen_location(_lat, _long)
                 LocationHistory.append_coordinates(LastSeenLocation.latitude, LastSeenLocation.longitude)
-                #LocationHistory.append_marker(LastSeenLocation.latitude, LastSeenLocation.longitude)
+                LocationHistory.append_marker(LastSeenLocation.latitude, LastSeenLocation.longitude)
                 logger.info('update location : lat {0}, long {1}'.format(_lat, _long))
 
     def get_current_location(self):
@@ -56,12 +57,14 @@ class LastSeenLocation(object):
 class LocationHistory(object):
     LOCATION_HISTORY = os.path.join(current_dir, 'location_history.json')
     location_history = []
-    #marker_history = []
+
+    marker_history = []
 
     def __init__(self):
         history = LocationHistory.read_history()
         LocationHistory.location_history = history
-        #LocationHistory.marker_history = history
+        for lat, long in history:
+            LocationHistory.append_marker(lat,long)
         if history:
             LastSeenLocation.latitude = LocationHistory.location_history[-1][0]
             LastSeenLocation.longitude = LocationHistory.location_history[-1][1]
