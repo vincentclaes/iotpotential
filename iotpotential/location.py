@@ -76,7 +76,7 @@ class LocationHistory(object):
     @staticmethod
     def append_marker(latitude, longitude):
         LocationHistory.marker_history.append({
-            'icon': icons.dots.red,
+            'icon':  'http://maps.google.com/mapfiles/ms/icons/green-dot.png',
             'lat': latitude,
             'lng': longitude,
             'infobox': 'lat:{0}, lng:{1}. #{2}'.format(latitude, longitude, len(LocationHistory.marker_history) + 1)
