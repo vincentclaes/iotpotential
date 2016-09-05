@@ -30,15 +30,15 @@ def fullmap():
         ),
         lat=50.879044,
         lng=4.701482,
-        markers=LocationHistory.marker_history,
-        # markers=[
-        #     {
-        #         'icon': 'http://maps.google.com/mapfiles/ms/icons/green-dot.png',
-        #         'lat': 50.879044,
-        #         'lng': 4.701482,
-        #         'infobox': "<b>Hello World</b>"
-        #     }
-        # ],
+        #markers=LocationHistory.marker_history,
+        markers=[
+            {
+                'icon': 'http://maps.google.com/mapfiles/ms/icons/green-dot.png',
+                'lat': 50.879044,
+                'lng': 4.701482,
+                'infobox': "<b>Hello World</b>"
+            }
+        ],
         polylines=[{
             'stroke_color': ' #dd4b39',
             'stroke_opacity': 1.0,
