@@ -6,14 +6,17 @@ from flask_googlemaps import Map, icons
 from iotpotential.location import LocationHistory
 from iotpotential.location import Location
 from threading import Thread
+
 app = Flask(__name__, template_folder="templates")
 
 # you can set key as config
-#app.config['GOOGLEMAPS_KEY'] = "AIzaSyAZzeHhs-8JZ7i18MjFuM35dJHq70n3Hx4"
+# app.config['GOOGLEMAPS_KEY'] = "AIzaSyAZzeHhs-8JZ7i18MjFuM35dJHq70n3Hx4"
 
 # you can also pass key here
 GoogleMaps(app, key="AIzaSyAZzeHhs-8JZ7i18MjFuM35dJHq70n3Hx4")
-#GoogleMaps(app, key="AIzaSyDigFY04sXaaKV59x_-qR4tq5oCxcZwaYs")
+
+
+# GoogleMaps(app, key="AIzaSyDigFY04sXaaKV59x_-qR4tq5oCxcZwaYs")
 
 @app.route('/')
 def fullmap():
@@ -30,14 +33,19 @@ def fullmap():
         ),
         lat=50.879044,
         lng=4.701482,
-        #markers=LocationHistory.marker_history,
+        # markers=LocationHistory.marker_history,
         markers=[
             {
-                'icon': 'http://maps.google.com/mapfiles/ms/icons/green-dot.png',
+                'icon': 'http://maps.google.com/mapfiles/ms/icons/red-dot.png',
                 'lat': 50.879044,
                 'lng': 4.701482,
                 'infobox': "<b>Hello World</b>"
-            }
+            }, {
+                'icon': 'http://maps.google.com/mapfiles/ms/icons/red-dot.png',
+                'lat': 50.877688,
+                'lng': 4.694980,
+                'infobox': "<b>Hello World</b>"
+            },
         ],
         polylines=[{
             'stroke_color': ' #dd4b39',
