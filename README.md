@@ -24,3 +24,4 @@ curl -i -X POST --basic -u "mKPCKnzKW4j8eVh4WaEmR3qlhwQa:uVzpRK57MizQ7aNN_0LL8M3
 rhc app-configure potential001 --deployment-branch <branch_name>
 
 rhc deploy <branch_name> -a potential001
+# rhc deploy master -a potential001
