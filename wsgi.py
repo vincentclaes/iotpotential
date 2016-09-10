@@ -10,7 +10,6 @@ try:
     execfile(virtualenv, dict(__file__=virtualenv))
 except (IOError, KeyError):
     pass
-start = False
 print 'i am in run'
 l = Location()
 print 'starting thread'

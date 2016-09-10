@@ -4,7 +4,6 @@ import os
 import time
 
 from api_gateway import ApiGateway
-from static import icons
 
 logger = logging.getLogger()
 logger.setLevel(logging.DEBUG)
@@ -60,6 +59,10 @@ class LastSeenLocation(object):
 class LocationHistory(object):
     LOCATION_HISTORY = os.path.join(current_dir, 'location_history.json')
     location_history = []
+    # polylines = [{'stroke_color': ' #dd4b39',
+    #              'stroke_opacity': 1.0,
+    #              'stroke_weight': 3,
+    #              'path': location_history}]
 
     marker_history = []
 
@@ -68,19 +71,20 @@ class LocationHistory(object):
         history = LocationHistory.read_history()
         LocationHistory.location_history = history
         for lat, long in history:
-            LocationHistory.append_marker(lat,long)
+            LocationHistory.append_marker(lat, long)
         if history:
             LastSeenLocation.latitude = LocationHistory.location_history[-1][0]
             LastSeenLocation.longitude = LocationHistory.location_history[-1][1]
 
     @staticmethod
     def append_coordinates(latitude, longitude):
-        LocationHistory.location_history.append((latitude, longitude))
+        LocationHistory.location_history.append({'lat': latitude,
+                                                 'lng': longitude})
 
     @staticmethod
     def append_marker(latitude, longitude):
         LocationHistory.marker_history.append({
-            'icon':  'http://maps.google.com/mapfiles/ms/icons/green-dot.png',
+            'icon': 'http://maps.google.com/mapfiles/ms/icons/red-dot.png',
             'lat': latitude,
             'lng': longitude,
             'infobox': 'lat:{0}, lng:{1}. #{2}'.format(latitude, longitude, len(LocationHistory.marker_history) + 1)
