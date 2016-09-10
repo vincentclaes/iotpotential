@@ -15,17 +15,22 @@ app = Flask(__name__, template_folder="templates")
 # you can also pass key here
 GoogleMaps(app, key="AIzaSyAZzeHhs-8JZ7i18MjFuM35dJHq70n3Hx4")
 
-
 # GoogleMaps(app, key="AIzaSyDigFY04sXaaKV59x_-qR4tq5oCxcZwaYs")
+start = True
+
 
 @app.route('/')
 def fullmap():
-    print 'i am in run'
-    l = Location()
-    print 'starting thread'
-    t = Thread(target=l.continuously_get_current_location)
-    t.start()
-    print 'thread starten'
+    # global start
+    # if start:
+    #     start = False
+    #     print 'i am in run'
+    #     l = Location()
+    #     print 'starting thread'
+    #     t = Thread(target=l.continuously_get_current_location)
+    #     t.start()
+    #     print 'thread started'
+
     fullmap = Map(
         identifier="fullmap",
         varname="fullmap",
