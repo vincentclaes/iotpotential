@@ -22,6 +22,7 @@ print 'thread started'
 # line, it's possible required libraries won't be in your searchable path
 #
 print 'before import'
+from potential001 import app as application
 print 'after import'
 
 
