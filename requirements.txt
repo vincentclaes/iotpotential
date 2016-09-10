@@ -1,5 +1,5 @@
 Flask==0.10.1
-flask-googlemaps
+flask-googlemaps==0.2.2
 requests
 gunicorn
 Jinja2

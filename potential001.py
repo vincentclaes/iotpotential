@@ -43,6 +43,7 @@ def fullmap():
             'path': LocationHistory.polylines
         }],
     )
+
     return render_template('example_fullmap.html', fullmap=fullmap)
 
 
