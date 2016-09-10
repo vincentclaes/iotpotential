@@ -58,7 +58,8 @@ def fullmap():
     return render_template('example_fullmap.html', fullmap=fullmap)
 
 
-l = Location()
-t = Thread(target=l.continuously_get_current_location)
-t.start()
-app.run(debug=True, use_reloader=True)
+def run():
+    l = Location()
+    t = Thread(target=l.continuously_get_current_location)
+    t.start()
+    app.run(debug=True, use_reloader=True)

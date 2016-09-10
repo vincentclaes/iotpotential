@@ -1,17 +1,24 @@
 #!/usr/bin/python
 import os
-
-virtenv = os.environ['OPENSHIFT_PYTHON_DIR'] + '/virtenv/'
-virtualenv = os.path.join(virtenv, 'bin/activate_this.py')
 try:
+
+    virtenv = os.environ['OPENSHIFT_PYTHON_DIR'] + '/virtenv/'
+    virtualenv = os.path.join(virtenv, 'bin/activate_this.py')
     execfile(virtualenv, dict(__file__=virtualenv))
+
+except KeyError:
+    print 'cannot find open shift python dir on PATH'
+    pass
 except IOError:
     pass
+
 #
 # IMPORTANT: Put any additional includes below this line.  If placed above this
 # line, it's possible required libraries won't be in your searchable path
 #
-from potential001 import app as application
+import potential001
+
+potential001.run()
 
 
 #
