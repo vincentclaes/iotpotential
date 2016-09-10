@@ -27,6 +27,7 @@ class Location(object):
     def continuously_get_current_location(self):
         while True:
             time.sleep(0.1)
+            print 'getting location'
             self.get_current_location()
 
     def update_current_location(self, location):

@@ -13,12 +13,8 @@ except IOError, KeyError:
 #
 print 'before import'
 from potential001 import app as application
-
 print 'after import'
 
-print 'before run'
-application.run()
-print 'after run'
 
 #
 # Below for testing only

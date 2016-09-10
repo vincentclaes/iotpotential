@@ -49,11 +49,13 @@ class ApiGateway(object):
 
     @staticmethod
     def get_current_location():
+        print 'in get current location'
         uri = '{0}/{1}/{2}/{3}'.format(ApiGateway.BASE_URL, 'device', ApiGateway.DEVICE_ID, 'location')
         headers = {'Accept': 'application/json', 'Content-Type': 'application/x-www-form-urlencoded',
                    'Authorization': 'Bearer ' + ApiGateway.ACCESS_TOKEN}
         response = requests.request('GET', uri, headers=headers)
         if response.status_code == 200:
+            print 'we have a good response'
             return json.loads(response.content)
         elif response.status_code == 401:
             ApiGateway._authenticate()

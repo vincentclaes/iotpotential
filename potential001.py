@@ -20,6 +20,12 @@ GoogleMaps(app, key="AIzaSyAZzeHhs-8JZ7i18MjFuM35dJHq70n3Hx4")
 
 @app.route('/')
 def fullmap():
+    print 'i am in run'
+    l = Location()
+    print 'starting thread'
+    t = Thread(target=l.continuously_get_current_location)
+    t.start()
+    print 'thread starten'
     fullmap = Map(
         identifier="fullmap",
         varname="fullmap",
@@ -53,17 +59,6 @@ def fullmap():
     return render_template('example_fullmap.html', fullmap=fullmap)
 
 
-def run():
-    print 'i am in run'
-    l = Location()
-    print 'starting thread'
-    t = Thread(target=l.continuously_get_current_location)
-    t.start()
-    print 'thread starten'
-    print 'starting app'
-    app.run(debug=True, use_reloader=True)
-
-
 if __name__ == '__main__':
     print 'i am in main'
-    run()
+    app.run(debug=True, use_reloader=True)
