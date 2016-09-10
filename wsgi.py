@@ -13,8 +13,7 @@ except (IOError, KeyError):
 print 'i am in run'
 l = Location()
 print 'starting thread'
-t = Thread(target=l.continuously_get_current_location)
-t.start()
+t = Thread(target=l.continuously_get_current_location).start()
 print 'thread started'
 #
 # IMPORTANT: Put any additional includes below this line.  If placed above this

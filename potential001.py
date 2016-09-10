@@ -5,7 +5,9 @@ from flask_googlemaps import GoogleMaps
 from flask_googlemaps import Map
 
 from iotpotential.location import LocationHistory
+from threading import Thread
 
+from iotpotential.location import Location
 app = Flask(__name__, template_folder="templates")
 
 # you can set key as config
@@ -33,12 +35,12 @@ def fullmap():
         ),
         lat=50.879044,
         lng=4.701482,
-        markers=LocationHistory.marker_history,
+        markers=LocationHistory.markers,
         polylines=[{
             'stroke_color': ' #dd4b39',
             'stroke_opacity': 1.0,
             'stroke_weight': 3,
-            'path': LocationHistory.location_history
+            'path': LocationHistory.polylines
         }],
     )
     return render_template('example_fullmap.html', fullmap=fullmap)

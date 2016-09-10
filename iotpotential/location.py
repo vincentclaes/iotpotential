@@ -59,35 +59,32 @@ class LastSeenLocation(object):
 class LocationHistory(object):
     LOCATION_HISTORY = os.path.join(current_dir, 'location_history.json')
     location_history = []
-    # polylines = [{'stroke_color': ' #dd4b39',
-    #              'stroke_opacity': 1.0,
-    #              'stroke_weight': 3,
-    #              'path': location_history}]
-
-    marker_history = []
+    markers = []
+    polylines = []
 
     def __init__(self):
         print 'init location history'
         history = LocationHistory.read_history()
-        LocationHistory.location_history = history
-        for lat, long in history:
-            LocationHistory.append_marker(lat, long)
+        LocationHistory.location_history.append(history)
+        [LocationHistory.append_coordinates(_lat, _long) for _lat, _long in history]
+        for _lat, _long in history:
+            LocationHistory.append_marker(_lat, _long)
         if history:
             LastSeenLocation.latitude = LocationHistory.location_history[-1][0]
             LastSeenLocation.longitude = LocationHistory.location_history[-1][1]
 
     @staticmethod
     def append_coordinates(latitude, longitude):
-        LocationHistory.location_history.append({'lat': latitude,
-                                                 'lng': longitude})
+        LocationHistory.polylines.append({'lat': latitude,
+                                          'lng': longitude})
 
     @staticmethod
     def append_marker(latitude, longitude):
-        LocationHistory.marker_history.append({
+        LocationHistory.markers.append({
             'icon': 'http://maps.google.com/mapfiles/ms/icons/red-dot.png',
             'lat': latitude,
             'lng': longitude,
-            'infobox': 'lat:{0}, lng:{1}. #{2}'.format(latitude, longitude, len(LocationHistory.marker_history) + 1)
+            'infobox': 'lat:{0}, lng:{1}. #{2}'.format(latitude, longitude, len(LocationHistory.markers) + 1)
         })
 
     @staticmethod
