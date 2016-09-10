@@ -53,8 +53,8 @@ def fullmap():
     return render_template('example_fullmap.html', fullmap=fullmap)
 
 
-if __name__ == '__main__':
-    print 'i am in main'
+def run():
+    print 'i am in run'
     l = Location()
     print 'starting thread'
     t = Thread(target=l.continuously_get_current_location)
@@ -62,3 +62,8 @@ if __name__ == '__main__':
     print 'thread starten'
     print 'starting app'
     app.run(debug=True, use_reloader=True)
+
+
+if __name__ == '__main__':
+    print 'i am in main'
+    run()

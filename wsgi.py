@@ -1,5 +1,6 @@
 #!/usr/bin/python
 import os
+
 try:
     virtenv = os.environ['OPENSHIFT_PYTHON_DIR'] + '/virtenv/'
     virtualenv = os.path.join(virtenv, 'bin/activate_this.py')
@@ -12,7 +13,12 @@ except IOError, KeyError:
 #
 print 'before import'
 from potential001 import app as application
+
 print 'after import'
+
+print 'before run'
+application.run()
+print 'after run'
 
 #
 # Below for testing only
