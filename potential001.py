@@ -53,12 +53,12 @@ def fullmap():
                 'infobox': "<b>Hello World</b>"
             }
         ],
-        polylines=[{
-            'stroke_color': ' #dd4b39',
-            'stroke_opacity': 1.0,
-            'stroke_weight': 3,
-            'path': LocationHistory.location_history
-        }]
+        # polylines=[{
+        #     'stroke_color': ' #dd4b39',
+        #     'stroke_opacity': 1.0,
+        #     'stroke_weight': 3,
+        #     'path': LocationHistory.location_history
+        # }]
 
     )
     return render_template('example_fullmap.html', fullmap=fullmap)
