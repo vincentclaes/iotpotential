@@ -62,7 +62,7 @@ def fullmap():
             'stroke_color': ' #dd4b39',
             'stroke_opacity': 1.0,
             'stroke_weight': 3,
-            'path': LocationHistory.location_history
+            'path': [50.879130, 4.700972]
         }],
         # polylines=LocationHistory.location_history
     )
