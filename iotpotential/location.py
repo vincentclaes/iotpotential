@@ -38,7 +38,7 @@ class Location(object):
                 LastSeenLocation.set_last_seen_location(_lat, _long)
                 LocationHistory.append_coordinates(LastSeenLocation.latitude, LastSeenLocation.longitude)
                 LocationHistory.append_marker(LastSeenLocation.latitude, LastSeenLocation.longitude)
-                LocationHistory.location_history.append([LastSeenLocation.latitude,LastSeenLocation.latitude])
+                LocationHistory.location_history.append([LastSeenLocation.latitude,LastSeenLocation.longitude])
                 logger.info('found a new one ! update location : lat {0}, long {1}'.format(_lat, _long))
         print '***{}***'.format(LocationHistory.polylines)
         print '***{}***'.format(LocationHistory.markers)
