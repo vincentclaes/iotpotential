@@ -2,10 +2,7 @@
 
 from flask import Flask, render_template
 from flask_googlemaps import GoogleMaps
-from flask_googlemaps import Map, icons
-from iotpotential.location import LocationHistory
-from iotpotential.location import Location
-from threading import Thread
+from flask_googlemaps import Map
 
 app = Flask(__name__, template_folder="templates")
 
@@ -51,7 +48,7 @@ def fullmap():
                 'lat': 50.879044,
                 'lng': 4.701482,
                 'infobox': "<b>Hello World</b>"
-            },{
+            }, {
                 'icon': 'http://maps.google.com/mapfiles/ms/icons/red-dot.png',
                 'lat': 50.879130,
                 'lng': 4.700972,
@@ -62,7 +59,13 @@ def fullmap():
             'stroke_color': ' #dd4b39',
             'stroke_opacity': 1.0,
             'stroke_weight': 3,
-            'path': [50.879130, 4.700972]
+            'path': [{
+                'lat': 50.879044,
+                'lng': 4.701482,
+            }, {
+                'lat': 50.879130,
+                'lng': 4.700972,
+            }]
         }],
         # polylines=LocationHistory.location_history
     )
