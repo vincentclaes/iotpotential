@@ -40,12 +40,7 @@ def fullmap():
                 'lat': 50.879044,
                 'lng': 4.701482,
                 'infobox': "<b>Hello World</b>"
-            }, {
-                'icon': 'http://maps.google.com/mapfiles/ms/icons/red-dot.png',
-                'lat': 50.877688,
-                'lng': 4.694980,
-                'infobox': "<b>Hello World</b>"
-            },
+            }
         ],
         polylines=[{
             'stroke_color': ' #dd4b39',
@@ -59,7 +54,11 @@ def fullmap():
 
 
 if __name__ == '__main__':
+    print 'i am in main'
     l = Location()
+    print 'starting thread'
     t = Thread(target=l.continuously_get_current_location)
     t.start()
+    print 'thread starten'
+    print 'starting app'
     app.run(debug=True, use_reloader=True)

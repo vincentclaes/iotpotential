@@ -21,6 +21,7 @@ logger.addHandler(ch)
 
 class Location(object):
     def __init__(self):
+        print 'init location'
         self.lh = LocationHistory()
 
     def continuously_get_current_location(self):
@@ -29,6 +30,7 @@ class Location(object):
             self.get_current_location()
 
     def update_current_location(self, location):
+        logger.info('updating location')
         _lat = location.get('latitude')
         _long = location.get('longitude')
         if _lat != 0.0 and _long != 0.0:
@@ -36,10 +38,10 @@ class Location(object):
                 LastSeenLocation.set_last_seen_location(_lat, _long)
                 LocationHistory.append_coordinates(LastSeenLocation.latitude, LastSeenLocation.longitude)
                 LocationHistory.append_marker(LastSeenLocation.latitude, LastSeenLocation.longitude)
-                logger.info('update location : lat {0}, long {1}'.format(_lat, _long))
+                logger.info('found a new one ! update location : lat {0}, long {1}'.format(_lat, _long))
 
     def get_current_location(self):
-        logger.info('last location : {}'.format(LocationHistory.location_history))
+        logger.info('get last location')
         current_location = ApiGateway.get_current_location()
         self.update_current_location(current_location)
 
@@ -61,6 +63,7 @@ class LocationHistory(object):
     marker_history = []
 
     def __init__(self):
+        print 'init location history'
         history = LocationHistory.read_history()
         LocationHistory.location_history = history
         for lat, long in history:
