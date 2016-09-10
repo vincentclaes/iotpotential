@@ -51,15 +51,20 @@ def fullmap():
                 'lat': 50.879044,
                 'lng': 4.701482,
                 'infobox': "<b>Hello World</b>"
-            }
+            },{
+                'icon': 'http://maps.google.com/mapfiles/ms/icons/red-dot.png',
+                'lat': 50.879130,
+                'lng': 4.700972,
+                'infobox': "<b>Hello World</b>"
+            },
         ],
-        # polylines=[{
-        #     'stroke_color': ' #dd4b39',
-        #     'stroke_opacity': 1.0,
-        #     'stroke_weight': 3,
-        #     'path': LocationHistory.location_history
-        # }]
-
+        polylines=[{
+            'stroke_color': ' #dd4b39',
+            'stroke_opacity': 1.0,
+            'stroke_weight': 3,
+            'path': LocationHistory.location_history
+        }],
+        # polylines=LocationHistory.location_history
     )
     return render_template('example_fullmap.html', fullmap=fullmap)
 

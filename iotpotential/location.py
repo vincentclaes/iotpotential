@@ -75,7 +75,7 @@ class LocationHistory(object):
 
     @staticmethod
     def append_coordinates(latitude, longitude):
-        LocationHistory.location_history.append([latitude, longitude])
+        LocationHistory.location_history.append((latitude, longitude))
 
     @staticmethod
     def append_marker(latitude, longitude):
