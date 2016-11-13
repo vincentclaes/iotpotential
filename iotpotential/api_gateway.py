@@ -29,7 +29,7 @@ class ApiGateway(object):
         https://login.enabling.be/oauth2/token
         -d "grant_type=password&username=vclaes1986@gmail.com&password=1saJocVin$"
         """
-        url = "https://login.enabling.be/oauth2/token"
+        url = "https://login.enco.io/oauth2/token"
 
         payload = "grant_type=password&username=vclaes1986%40gmail.com&password=1saJocVin%24"
         headers = {
