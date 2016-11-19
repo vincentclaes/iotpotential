@@ -1,6 +1,7 @@
 # coding: utf-8
 
 from flask import Flask, render_template
+# noinspection PyPackageRequirements
 from flask_googlemaps import GoogleMaps
 from flask_googlemaps import Map
 
@@ -50,4 +51,4 @@ def fullmap():
 if __name__ == '__main__':
     l = Location()
     t = Thread(target=l.continuously_get_current_location).start()
-    app.run(debug=True, use_reloader=True)
+    app.run(debug=True, use_reloader=True,host='0.0.0.0')

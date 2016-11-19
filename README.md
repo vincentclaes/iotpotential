@@ -25,3 +25,9 @@ rhc app-configure potential001 --deployment-branch <branch_name>
 
 rhc deploy <branch_name> -a potential001
 # rhc deploy master -a potential001
+
+#### build docker image
+
+´sudo docker build -t potential001:latest .´
+´sudo docker run -d -p 5000:5000 potential001´
+
