@@ -14,8 +14,6 @@ class ApiGatewayException(Exception):
 class ApiGateway(object):
     BASE_URL = 'https://api.enco.io/seaas/0.0.1'
     AUTH_URL = 'https://login.enco.io/oauth2/token'
-    # CONSUMER_KEY = 'mKPCKnzKW4j8eVh4WaEmR3qlhwQa'
-    # CONSUMER_SECRET = 'uVzpRK57MizQ7aNN_0LL8M3avR4a'
     ACCESS_TOKEN = None
     DEVICE_ID = '1C8779C0000000C9'
 

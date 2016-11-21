@@ -25,7 +25,7 @@ class Location(object):
 
     def continuously_get_current_location(self):
         while True:
-            time.sleep(0.1)
+            time.sleep(1)
             # print 'getting location'
             self.get_current_location()
 
@@ -35,7 +35,6 @@ class Location(object):
         self.update_current_location(current_location)
 
     def update_current_location(self, location):
-        # logger.info('updating location')
         _lat = location.get('latitude')
         _long = location.get('longitude')
         if _lat != 0.0 and _long != 0.0:
@@ -45,9 +44,7 @@ class Location(object):
                 LocationHistory.append_marker(LastSeenLocation.latitude, LastSeenLocation.longitude)
                 LocationHistory.location_history.append([LastSeenLocation.latitude,LastSeenLocation.longitude])
                 logger.info('found a new one ! update location : lat {0}, long {1}'.format(_lat, _long))
-        # print '***{}***'.format(LocationHistory.polylines)
-        # print '***{}***'.format(LocationHistory.markers)
-        # print '***{}***'.format(LocationHistory.location_history)
+
 
 
 
