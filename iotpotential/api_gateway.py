@@ -26,10 +26,10 @@ class ApiGateway(object):
         """
         curl -i -X POST --basic -u "mKPCKnzKW4j8eVh4WaEmR3qlhwQa:uVzpRK57MizQ7aNN_0LL8M3avR4a"
         -H "Accept:application/json" -H "Content-Type:application/x-www-form-urlencoded"
-        https://login.enabling.be/oauth2/token
+        https://login.enco.io/oauth2/token
         -d "grant_type=password&username=vclaes1986@gmail.com&password=1saJocVin$"
         """
-        url = "https://login.enco.io/oauth2/token"
+        # url = "https://login.enco.io/oauth2/token"
 
         payload = "grant_type=password&username=vclaes1986%40gmail.com&password=1saJocVin%24"
         headers = {
@@ -40,7 +40,7 @@ class ApiGateway(object):
             'postman-token': "7afd9f3a-c728-185b-1d39-944da55528f6"
         }
 
-        response = requests.request("POST", url, data=payload, headers=headers)
+        response = requests.request("POST", ApiGateway.AUTH_URL, data=payload, headers=headers)
         print(response.text)
         if response.status_code == 200:
             ApiGateway.ACCESS_TOKEN = json.loads(response.content).get('access_token')
@@ -55,7 +55,7 @@ class ApiGateway(object):
                    'Authorization': 'Bearer ' + ApiGateway.ACCESS_TOKEN}
         response = requests.request('GET', uri, headers=headers)
         if response.status_code == 200:
-            print 'we have a good response'
+            # print 'we have a good response'
             return json.loads(response.content)
         elif response.status_code == 401:
             ApiGateway._authenticate()
