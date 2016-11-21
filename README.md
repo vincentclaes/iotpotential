@@ -26,8 +26,25 @@ rhc app-configure potential001 --deployment-branch <branch_name>
 rhc deploy <branch_name> -a potential001
 # rhc deploy master -a potential001
 
-#### build docker image
+#### build docker image locally
 
 ´sudo docker build -t potential001:latest .´
 ´sudo docker run -d -p 5000:5000 potential001´
 
+access on http://localhost:5000
+
+#### build docker image on AWS
+url : https://eu-central-1.console.aws.amazon.com/ec2/v2/home?region=eu-central-1#Instances:
+instance id : i-143002a8
+
+ssh to instance:
+cd to ~/Documents/keys
+ssh -i my-ec2-key_pair.pem ec2-user@52.59.224.105
+
+´docker build -t potential001:latest .´
+´docker run -d -p 80:5000 potential001´
+
+acces the application at:
+
+http://ec2-52-59-224-105.eu-central-1.compute.amazonaws.com/ (public dns)
+http://52.59.224.105 (public ip)
