@@ -13,7 +13,7 @@ class ApiGatewayException(Exception):
 
 class ApiGateway(object):
     BASE_URL = 'https://api.enco.io/seaas/0.0.1'
-    AUTH_URL = 'https://login.enco.io/oauth2/token'
+    AUTH_URL = 'https://api.enco.io/token'
     ACCESS_TOKEN = None
     DEVICE_ID = '1C8779C0000000C9'
 
@@ -29,16 +29,18 @@ class ApiGateway(object):
         """
         # url = "https://login.enco.io/oauth2/token"
 
-        payload = "grant_type=password&username=vclaes1986%40gmail.com&password=1saJocVin%24"
+        querystring = {"grant_type": "client_credentials", "client_id": "mKPCKnzKW4j8eVh4WaEmR3qlhwQa",
+                       "client_secret": "uVzpRK57MizQ7aNN_0LL8M3avR4a", "scope": "openid"}
+
+        payload = "="
         headers = {
             'accept': "application/json",
             'content-type': "application/x-www-form-urlencoded",
-            'authorization': "Basic bUtQQ0tuektXNGo4ZVZoNFdhRW1SM3FsaHdRYTp1VnpwUks1N01pelE3YU5OXzBMTDhNM2F2UjRh",
             'cache-control': "no-cache",
-            'postman-token': "7afd9f3a-c728-185b-1d39-944da55528f6"
+            'postman-token': "f51149f5-ffdf-c7ac-88f3-7d1445efda6c"
         }
 
-        response = requests.request("POST", ApiGateway.AUTH_URL, data=payload, headers=headers)
+        response = requests.request("POST", ApiGateway.AUTH_URL, data=payload, headers=headers, params=querystring)
         print(response.text)
         if response.status_code == 200:
             ApiGateway.ACCESS_TOKEN = json.loads(response.content).get('access_token')
