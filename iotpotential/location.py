@@ -2,8 +2,8 @@ import json
 import logging
 import os
 import time
-
 from api_gateway import ApiGateway
+from iotpotential import DEVICE_ID
 
 logger = logging.getLogger()
 logger.setLevel(logging.DEBUG)
@@ -39,15 +39,31 @@ class Location(object):
         _long = location.get('longitude')
         if _lat != 0.0 and _long != 0.0:
             if _lat != LastSeenLocation.latitude or _long != LastSeenLocation.longitude:
+                from models import DeviceLocation
+
                 LastSeenLocation.set_last_seen_location(_lat, _long)
                 LocationHistory.append_coordinates(LastSeenLocation.latitude, LastSeenLocation.longitude)
                 LocationHistory.append_marker(LastSeenLocation.latitude, LastSeenLocation.longitude)
                 LocationHistory.location_history.append([LastSeenLocation.latitude,LastSeenLocation.longitude])
+                Location.update_sqlite(DEVICE_ID, LastSeenLocation.latitude, LastSeenLocation.longitude, 0)
                 logger.info('found a new one ! update location : lat {0}, long {1}'.format(_lat, _long))
 
 
-
-
+    @staticmethod
+    def update_sqlite(device_id, lat, long, alt):
+        from models import DeviceLocation
+        from app import db
+        dl = DeviceLocation(id=device_id, lat=lat, long=long, alt=alt)
+        try:
+            db.session.add(dl)
+            db.session.commit()
+        except Exception as e:
+            logging.info('we have an error {}'.format(str(e)))
+            db.session.rollback()
+            raise
+        finally:
+            db.session.close()
+        logger.info('Query sqllite : {}'.format(DeviceLocation.query.all()))
 
 class LastSeenLocation(object):
     latitude = None
