@@ -1,22 +1,11 @@
 import json
-import logging
 import os
 import time
 
 from api_gateway import ApiGateway
-
-logger = logging.getLogger()
-logger.setLevel(logging.DEBUG)
-current_dir = os.path.dirname(__file__)
-
-ch = logging.StreamHandler()
-ch.setLevel(logging.DEBUG)
-# create formatter and add it to the handlers
-formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
-ch.setFormatter(formatter)
-# add the handlers to the logger
-logger.addHandler(ch)
-
+from iotpotential import logger, current_dir
+from iotpotential.database import db_session
+from iotpotential.models import DeviceLocation
 
 class Location(object):
     def __init__(self):
@@ -28,6 +17,8 @@ class Location(object):
             time.sleep(1)
             # print 'getting location'
             self.get_current_location()
+            logger.info('query all : ')
+            logger.info(DeviceLocation.query.all())
 
     def get_current_location(self):
         logger.info('get last location')
@@ -42,10 +33,13 @@ class Location(object):
                 LastSeenLocation.set_last_seen_location(_lat, _long)
                 LocationHistory.append_coordinates(LastSeenLocation.latitude, LastSeenLocation.longitude)
                 LocationHistory.append_marker(LastSeenLocation.latitude, LastSeenLocation.longitude)
-                LocationHistory.location_history.append([LastSeenLocation.latitude,LastSeenLocation.longitude])
+                LocationHistory.location_history.append([LastSeenLocation.latitude, LastSeenLocation.longitude])
                 logger.info('found a new one ! update location : lat {0}, long {1}'.format(_lat, _long))
 
-
+                # add to SqlLite
+                dl = DeviceLocation(_lat, _long)
+                db_session.add(dl)
+                db_session.commit()
 
 
 

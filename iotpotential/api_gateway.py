@@ -1,5 +1,5 @@
 import json
-
+from iotpotential import DEVICE_ID
 import requests
 
 
@@ -15,7 +15,7 @@ class ApiGateway(object):
     BASE_URL = 'https://api.enco.io/seaas/0.0.1'
     AUTH_URL = 'https://api.enco.io/token'
     ACCESS_TOKEN = None
-    DEVICE_ID = '1C8779C0000000C9'
+
 
     def __init__(self):
         pass
@@ -50,7 +50,7 @@ class ApiGateway(object):
     @staticmethod
     def get_current_location():
         print 'in get current location'
-        uri = '{0}/{1}/{2}/{3}'.format(ApiGateway.BASE_URL, 'device', ApiGateway.DEVICE_ID, 'location')
+        uri = '{0}/{1}/{2}/{3}'.format(ApiGateway.BASE_URL, 'device', DEVICE_ID, 'location')
         headers = {'Accept': 'application/json', 'Content-Type': 'application/x-www-form-urlencoded',
                    'Authorization': 'Bearer ' + ApiGateway.ACCESS_TOKEN}
         response = requests.request('GET', uri, headers=headers)

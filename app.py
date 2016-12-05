@@ -52,5 +52,13 @@ def main():
     t = Thread(target=l.continuously_get_current_location).start()
     app.run(debug=True, use_reloader=True,host='0.0.0.0')
 
+
+from iotpotential.database import db_session
+
+@app.teardown_appcontext
+def shutdown_session(exception=None):
+    db_session.remove()
+
 if __name__ == '__main__':
     main()
+
