@@ -53,7 +53,7 @@ class Location(object):
     def update_sqlite(device_id, lat, long, alt):
         from models import DeviceLocation
         from app import db
-        dl = DeviceLocation(id=device_id, lat=lat, long=long, alt=alt)
+        dl = DeviceLocation(lat=lat, long=long)
         try:
             db.session.add(dl)
             db.session.commit()
