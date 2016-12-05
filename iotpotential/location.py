@@ -17,6 +17,19 @@ ch.setFormatter(formatter)
 # add the handlers to the logger
 logger.addHandler(ch)
 
+import att_iot_client
+from att_iot_client import ATT_IOT
+
+def on_message(id, value):
+    print 'oncallback {} : {}'.format(id, value)
+
+ATT_IOT.ClientId = 'vclaes1986'
+ATT_IOT.ClientKey = 'ujcpi2ktbyl'
+ATT_IOT.DeviceId = '69dad82d2a61dda5111ef3b4aa9db712'
+ATT_IOT.on_message = on_message
+
+att_iot_client.subscribe()
+
 
 class Location(object):
     def __init__(self):
@@ -26,8 +39,9 @@ class Location(object):
     def continuously_get_current_location(self):
         while True:
             time.sleep(1)
+            break
             # print 'getting location'
-            self.get_current_location()
+            # self.get_current_location()
 
     def get_current_location(self):
         logger.info('get last location')
