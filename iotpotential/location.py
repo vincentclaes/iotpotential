@@ -35,8 +35,9 @@ class Location(object):
         self.update_current_location(current_location)
 
     def update_current_location(self, location):
-        _lat = location.get('latitude')
-        _long = location.get('longitude')
+        gps_meter_value = location.get('gpsMeterValue')
+        _lat = gps_meter_value.get('latitude')
+        _long = gps_meter_value.get('longitude')
         if _lat != 0.0 and _long != 0.0:
             if _lat != LastSeenLocation.latitude or _long != LastSeenLocation.longitude:
                 LastSeenLocation.set_last_seen_location(_lat, _long)

@@ -50,7 +50,7 @@ class ApiGateway(object):
     @staticmethod
     def get_current_location():
         print 'in get current location'
-        uri = '{0}/{1}/{2}/{3}'.format(ApiGateway.BASE_URL, 'device', ApiGateway.DEVICE_ID, 'location')
+        uri = '{0}/{1}/{2}/{3}'.format(ApiGateway.BASE_URL, 'device', ApiGateway.DEVICE_ID, 'stream/9/pop')
         headers = {'Accept': 'application/json', 'Content-Type': 'application/x-www-form-urlencoded',
                    'Authorization': 'Bearer ' + ApiGateway.ACCESS_TOKEN}
         response = requests.request('GET', uri, headers=headers)
