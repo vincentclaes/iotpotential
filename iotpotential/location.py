@@ -1,7 +1,7 @@
 import json
 import os
 import time
-
+from datetime import datetime
 from api_gateway import ApiGateway
 from iotpotential import logger, current_dir
 from iotpotential.database import db_session
@@ -27,6 +27,7 @@ class Location(object):
 
     def update_current_location(self, location):
         gps_meter_value = location.get('gpsMeterValue')
+        _timestamp =  datetime.fromtimestamp(gps_meter_value.get('timestamp'))
         _lat = gps_meter_value.get('latitude')
         _long = gps_meter_value.get('longitude')
         if _lat != 0.0 and _long != 0.0:
@@ -38,7 +39,7 @@ class Location(object):
                 logger.info('found a new one ! update location : lat {0}, long {1}'.format(_lat, _long))
 
                 # add to SqlLite
-                dl = DeviceLocation(_lat, _long)
+                dl = DeviceLocation(_timestamp, _lat, _long)
                 db_session.add(dl)
                 db_session.commit()
 
