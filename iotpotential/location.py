@@ -6,19 +6,24 @@ from api_gateway import ApiGateway
 from iotpotential import logger, current_dir
 from iotpotential.database import db_session
 from iotpotential.models import DeviceLocation
+from threading import Thread
 
 class Location(object):
     def __init__(self):
         print 'init location'
         self.lh = LocationHistory()
 
-    def continuously_get_current_location(self):
-        while True:
-            time.sleep(1)
-            # print 'getting location'
-            self.get_current_location()
-            logger.info('query all : ')
-            logger.info(DeviceLocation.query.all())
+    def push_location_to_rds(self):
+        try:
+            while True:
+                time.sleep(1)
+                # print 'getting location'
+                self.get_current_location()
+                logger.info('query all : ')
+                logger.info(DeviceLocation.query.all())
+        finally:
+            logger.info('remove db session before exiting ...')
+            db_session.remove()
 
     def get_current_location(self):
         logger.info('get last location')
@@ -33,9 +38,9 @@ class Location(object):
         if _lat != 0.0 and _long != 0.0:
             if _lat != LastSeenLocation.latitude or _long != LastSeenLocation.longitude:
                 LastSeenLocation.set_last_seen_location(_lat, _long)
-                LocationHistory.append_coordinates(LastSeenLocation.latitude, LastSeenLocation.longitude)
-                LocationHistory.append_marker(LastSeenLocation.latitude, LastSeenLocation.longitude)
-                LocationHistory.location_history.append([LastSeenLocation.latitude, LastSeenLocation.longitude])
+                # LocationHistory.append_coordinates(LastSeenLocation.latitude, LastSeenLocation.longitude)
+                # LocationHistory.append_marker(LastSeenLocation.latitude, LastSeenLocation.longitude)
+                # LocationHistory.location_history.append([LastSeenLocation.latitude, LastSeenLocation.longitude])
                 logger.info('found a new one ! update location : lat {0}, long {1}'.format(_lat, _long))
 
                 # add to SqlLite
@@ -62,16 +67,30 @@ class LocationHistory(object):
     polylines = []
 
     def __init__(self):
+        pass
         # print 'init location history'
-        history = LocationHistory.read_history()
-        LocationHistory.location_history.append(history)
-        [LocationHistory.append_coordinates(_lat, _long) for _lat, _long in history]
-        for _lat, _long in history:
-            LocationHistory.append_marker(_lat, _long)
-        if history:
-            LastSeenLocation.latitude = LocationHistory.location_history[-1][0]
-            LastSeenLocation.longitude = LocationHistory.location_history[-1][1]
+        #history = LocationHistory.read_history()
+        #LocationHistory.location_history.append(history)
+        # [LocationHistory.append_coordinates(_lat, _long) for _lat, _long in history]
+        # for _lat, _long in history:
+        #     LocationHistory.append_marker(_lat, _long)
+        # if history:
+        #     LastSeenLocation.latitude = LocationHistory.location_history[-1][0]
+        #     LastSeenLocation.longitude = LocationHistory.location_history[-1][1]
 
+    @staticmethod
+    def get_location():
+        try:
+            while True:
+                all_devicelocations = DeviceLocation.query.all()
+                logger.info('found {} devicelocations ons aws rds'.format(len(all_devicelocations)))
+                for devicelocation in all_devicelocations:
+                    LocationHistory.append_coordinates(devicelocation.lat, devicelocation.long)
+                    LocationHistory.append_marker(devicelocation.lat, devicelocation.long)
+                time.sleep(3)
+        finally:
+            logger.info('remove db session before exiting ...')
+            db_session.remove()
     @staticmethod
     def append_coordinates(latitude, longitude):
         LocationHistory.polylines.append({'lat': latitude,
@@ -86,17 +105,22 @@ class LocationHistory(object):
             'infobox': 'lat:{0}, lng:{1}. #{2}'.format(latitude, longitude, len(LocationHistory.markers) + 1)
         })
 
-    @staticmethod
-    def read_history(file_path=LOCATION_HISTORY):
-        with open(file_path, 'r') as f:
-            return json.load(f)
+    # @staticmethod
+    # def read_history(file_path=LOCATION_HISTORY):
+    #     with open(file_path, 'r') as f:
+    #         return json.load(f)
 
-    @staticmethod
-    def write_history(file_path=LOCATION_HISTORY):
-        timestr = time.strftime("%Y%m%d-%H%M%S")
-        _file_path, ext = os.path.splitext(file_path)
-        file_path_time_based = _file_path + '-' + timestr + ext
-        with open(file_path_time_based, 'w') as f:
-            json.dump(LocationHistory.location_history, f)
-        with open(file_path, 'r+') as f:
-            json.dump(LocationHistory.location_history, f)
+    # @staticmethod
+    # def write_history(file_path=LOCATION_HISTORY):
+    #     timestr = time.strftime("%Y%m%d-%H%M%S")
+    #     _file_path, ext = os.path.splitext(file_path)
+    #     file_path_time_based = _file_path + '-' + timestr + ext
+    #     with open(file_path_time_based, 'w') as f:
+    #         json.dump(LocationHistory.location_history, f)
+    #     with open(file_path, 'r+') as f:
+    #         json.dump(LocationHistory.location_history, f)
+
+
+if __name__ == '__main__':
+    l = Location()
+    l.push_location_to_rds()

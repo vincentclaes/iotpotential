@@ -6,3 +6,5 @@ Jinja2
 Werkzeug
 mock
 nose
+sqlalchemy
+psycopg2

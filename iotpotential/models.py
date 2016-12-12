@@ -4,11 +4,11 @@ from iotpotential.database import Base
 class DeviceLocation(Base):
     __tablename__ = 'DeviceLocation'
     id = Column(Integer, primary_key=True)
-    device_id = Column(String(64))
+    device_id = Column(String(54))
     timestamp = Column(DateTime)
-    lat = Column(Float(64))
-    long = Column(Float(64))
-    alt = Column(Float(64))
+    lat = Column(Float(53))
+    long = Column(Float(53))
+    alt = Column(Float(53))
 
 
     def __init__(self, timestamp, lat, long, alt=0):

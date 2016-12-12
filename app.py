@@ -49,8 +49,11 @@ def fullmap():
 
 def main():
     l = Location()
-    t = Thread(target=l.continuously_get_current_location).start()
+    Thread(target=l.push_location_to_rds, name='push_location_to_rds').start()
+    lh = LocationHistory()
+    Thread(target=lh.get_location, name='get_location_from_rds').start()
     app.run(debug=True, use_reloader=True,host='0.0.0.0')
+
 
 
 from iotpotential.database import db_session
