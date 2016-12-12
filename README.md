@@ -41,3 +41,20 @@ access the application at:
 
 http://ec2-52-59-224-105.eu-central-1.compute.amazonaws.com/ (public dns)
 http://52.59.224.105 (public ip)
+
+
+### info on aws rds
+
+we have a postgress db running on aws:
+
+url of aws page:
+https://eu-central-1.console.aws.amazon.com/rds/home?region=eu-central-1#dbinstances:
+
+endpoint:
+potential001.ce0fcmlyqlgf.eu-central-1.rds.amazonaws.com:5432
+
+we had to add some inbound rules to our security group of our rds instance 
+so that our ec2 instance could connect to our rds instance.
+for more info : http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_VPC.Scenarios.html
+
+
