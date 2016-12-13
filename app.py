@@ -52,7 +52,7 @@ def main():
     Thread(target=l.push_location_to_rds, name='push_location_to_rds').start()
     lh = LocationHistory()
     Thread(target=lh.get_location, name='get_location_from_rds').start()
-    app.run(debug=True, use_reloader=True,host='0.0.0.0')
+    app.run(debug=True, use_reloader=True,host='0.0.0.0', port=5002)
 
 
 

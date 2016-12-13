@@ -84,20 +84,22 @@ class LocationHistory(object):
             while True:
                 all_devicelocations = DeviceLocation.query.all()
                 logger.info('found {} devicelocations ons aws rds'.format(len(all_devicelocations)))
+                LocationHistory.markers = [] # init list because we are going to add all points all over again
+                LocationHistory.polylines = [] # idem
                 for devicelocation in all_devicelocations:
-                    LocationHistory.append_coordinates(devicelocation.lat, devicelocation.long)
-                    LocationHistory.append_marker(devicelocation.lat, devicelocation.long)
+                    LocationHistory.create_polylines_list(devicelocation.lat, devicelocation.long)
+                    LocationHistory.create_markers_list(devicelocation.lat, devicelocation.long)
                 time.sleep(3)
         finally:
             logger.info('remove db session before exiting ...')
             db_session.remove()
     @staticmethod
-    def append_coordinates(latitude, longitude):
+    def create_polylines_list(latitude, longitude):
         LocationHistory.polylines.append({'lat': latitude,
                                           'lng': longitude})
 
     @staticmethod
-    def append_marker(latitude, longitude):
+    def create_markers_list(latitude, longitude):
         LocationHistory.markers.append({
             'icon': 'http://maps.google.com/mapfiles/ms/icons/red-dot.png',
             'lat': latitude,
