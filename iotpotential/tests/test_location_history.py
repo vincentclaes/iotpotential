@@ -1,7 +1,7 @@
 import os
 import unittest
 
-from iotpotential.location import LocationHistory
+from iotpotential.services.location import LocationHistory
 
 current_dir = os.path.dirname(__file__)
 

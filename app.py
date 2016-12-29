@@ -1,14 +1,14 @@
 # coding: utf-8
 
-from flask import Flask, render_template
-# noinspection PyPackageRequirements
-from flask_googlemaps import GoogleMaps
-from flask_googlemaps import Map
-
-from iotpotential.location import LocationHistory
 from threading import Thread
 
-from iotpotential.location import Location
+from flask import Flask, render_template
+
+from flask_googlemaps import GoogleMaps
+from flask_googlemaps import Map
+from iotpotential.services.location import Location
+from iotpotential.services.location import LocationHistory
+
 app = Flask(__name__, template_folder="templates")
 
 # you can set key as config

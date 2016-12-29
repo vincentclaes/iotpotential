@@ -1,8 +1,10 @@
 import unittest
-import app
+
 import mock
-from iotpotential.location import LocationHistory
-from iotpotential.location import LastSeenLocation
+
+import app
+from iotpotential.services.location import LastSeenLocation
+from iotpotential.services.location import LocationHistory
 
 
 class MyTestCase(unittest.TestCase):

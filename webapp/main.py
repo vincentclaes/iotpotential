@@ -1,10 +1,12 @@
 # coding: utf-8
 
+from threading import Thread
+
 from flask import Flask, render_template
+
 from flask_googlemaps import GoogleMaps
 from flask_googlemaps import Map, icons
-from iotpotential.location import (Location, LastSeenLocation, LocationHistory)
-from threading import Thread
+from iotpotential.services.location import (Location, LastSeenLocation, LocationHistory)
 
 app = Flask(__name__, template_folder="templates")
 
