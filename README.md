@@ -57,4 +57,9 @@ we had to add some inbound rules to our security group of our rds instance
 so that our ec2 instance could connect to our rds instance.
 for more info : http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_VPC.Scenarios.html
 
+### db service
+ssh -i ~/Documents/keys/my-ec2-key_pair.pem ec2-user@54.93.73.23
+sudo docker build -f Dockerfile.db -t locationservice:latest  .
+sudo docker run -d locationservice
+
 
