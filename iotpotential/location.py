@@ -35,6 +35,7 @@ class Location(object):
         self.update_current_location(current_location)
 
     def update_current_location(self, location):
+        _timestamp = location.get('timestamp')
         gps_meter_value = location.get('gpsMeterValue')
         _lat = gps_meter_value.get('latitude')
         _long = gps_meter_value.get('longitude')
@@ -42,7 +43,7 @@ class Location(object):
             if _lat != LastSeenLocation.latitude or _long != LastSeenLocation.longitude:
                 LastSeenLocation.set_last_seen_location(_lat, _long)
                 LocationHistory.append_coordinates(LastSeenLocation.latitude, LastSeenLocation.longitude)
-                LocationHistory.append_marker(LastSeenLocation.latitude, LastSeenLocation.longitude)
+                LocationHistory.append_marker(LastSeenLocation.latitude, LastSeenLocation.longitude, _timestamp)
                 LocationHistory.location_history.append([LastSeenLocation.latitude,LastSeenLocation.longitude])
                 logger.info('found a new one ! update location : lat {0}, long {1}'.format(_lat, _long))
 
@@ -83,12 +84,12 @@ class LocationHistory(object):
                                           'lng': longitude})
 
     @staticmethod
-    def append_marker(latitude, longitude):
+    def append_marker(latitude, longitude, _timestamp = ''):
         LocationHistory.markers.append({
             'icon': 'http://maps.google.com/mapfiles/ms/icons/red-dot.png',
             'lat': latitude,
             'lng': longitude,
-            'infobox': 'lat:{0}, lng:{1}. #{2}'.format(latitude, longitude, len(LocationHistory.markers) + 1)
+            'infobox': 'lat:{0}, lng:{1}, time: {2}, #{3}'.format(latitude, longitude, _timestamp, len(LocationHistory.markers) + 1)
         })
 
     @staticmethod
