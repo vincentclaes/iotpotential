@@ -17,7 +17,7 @@ class Location(object):
     def push_location_to_rds(self):
         try:
             while True:
-                time.sleep(1)
+                time.sleep(5)
                 # print 'getting location'
                 self.get_current_location()
                 logger.info('query all : ')
