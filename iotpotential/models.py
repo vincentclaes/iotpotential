@@ -12,11 +12,11 @@ class DeviceLocation(Base):
 
 
     def __init__(self, timestamp, lat, long, alt=0):
-        self.device_id = '1C8779C0000000C9'
+        self.device_id = '1C8779C000000156'
         self.timestamp = timestamp
         self.lat = lat
         self.long = long
         self.alt = alt
 
     def __repr__(self):
-        return '<Device {} - {}:{}>'.format(self.id, self.lat, self.long)
+        return '<Device {} - {}:{} - time {}>'.format(self.id, self.lat, self.long, self.timestamp)

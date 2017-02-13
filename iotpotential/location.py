@@ -7,6 +7,7 @@ from iotpotential import logger, current_dir
 from iotpotential.database import db_session
 from iotpotential.models import DeviceLocation
 from threading import Thread
+import dateutil.parser
 
 class Location(object):
     def __init__(self):
@@ -31,8 +32,8 @@ class Location(object):
         self.update_current_location(current_location)
 
     def update_current_location(self, location):
+        _timestamp =  dateutil.parser.parse(location.get('timestamp'))
         gps_meter_value = location.get('gpsMeterValue')
-        _timestamp =  datetime.fromtimestamp(gps_meter_value.get('timestamp'))
         _lat = gps_meter_value.get('latitude')
         _long = gps_meter_value.get('longitude')
         if _lat != 0.0 and _long != 0.0:

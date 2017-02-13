@@ -15,7 +15,7 @@ class ApiGateway(object):
     BASE_URL = 'https://api.enco.io/seaas/0.0.1'
     AUTH_URL = 'https://api.enco.io/token'
     ACCESS_TOKEN = None
-    DEVICE_ID = '1C8779C0000000C9'
+    DEVICE_ID = '1C8779C000000156'
 
     def __init__(self):
         pass
