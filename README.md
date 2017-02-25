@@ -33,7 +33,6 @@ instance id : i-143002a8
 
 ssh to instance:
 ´ssh -i ~/Documents/keys/my-ec2-key_pair.pem ec2-user@52.59.224.105´
-
 ´docker build -t potential001:latest .´
 ´docker run -d -p 80:5000 potential001´
 
