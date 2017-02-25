@@ -1,10 +1,2 @@
-Flask==0.10.1
-flask-googlemaps==0.2.2
-requests
-gunicorn
-Jinja2
-Werkzeug
-mock
-nose
-sqlalchemy
-psycopg2
+--index-url https://pypi.python.org/simple/
+-e .

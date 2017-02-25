@@ -4,7 +4,7 @@ init_db()
 
 
 # constants
-DEVICE_ID = '1C8779C0000000C9'
+DEVICE_ID = '1C8779C000000156'
 
 
 # setup logger
