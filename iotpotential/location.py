@@ -2,8 +2,9 @@ import json
 import logging
 import os
 import time
+from datetime import datetime
+
 from api_gateway import ApiGateway
-from iotpotential import DEVICE_ID
 
 logger = logging.getLogger()
 logger.setLevel(logging.DEBUG)
@@ -25,7 +26,7 @@ class Location(object):
 
     def continuously_get_current_location(self):
         while True:
-            time.sleep(1)
+            time.sleep(5)
             # print 'getting location'
             self.get_current_location()
 
@@ -37,33 +38,33 @@ class Location(object):
     def update_current_location(self, location):
         _lat = location.get('latitude')
         _long = location.get('longitude')
-        if _lat != 0.0 and _long != 0.0:
-            if _lat != LastSeenLocation.latitude or _long != LastSeenLocation.longitude:
-                from models import DeviceLocation
+        # if _lat != 0.0 and _long != 0.0:
+        #     if _lat != LastSeenLocation.latitude or _long != LastSeenLocation.longitude:
+        # from app import DeviceLocation
 
-                LastSeenLocation.set_last_seen_location(_lat, _long)
-                LocationHistory.append_coordinates(LastSeenLocation.latitude, LastSeenLocation.longitude)
-                LocationHistory.append_marker(LastSeenLocation.latitude, LastSeenLocation.longitude)
-                LocationHistory.location_history.append([LastSeenLocation.latitude,LastSeenLocation.longitude])
-                Location.update_sqlite(DEVICE_ID, LastSeenLocation.latitude, LastSeenLocation.longitude, 0)
-                logger.info('found a new one ! update location : lat {0}, long {1}'.format(_lat, _long))
-
+        LastSeenLocation.set_last_seen_location(_lat, _long)
+        LocationHistory.append_coordinates(_lat, _long)
+        LocationHistory.append_marker(_lat, _long)
+        LocationHistory.location_history.append([_lat, _long])
+        Location.update_sqlite(LastSeenLocation.latitude, _long)
+        logger.info('found a new one ! update location : lat {0}, long {1}'.format(_lat, _long))
 
     @staticmethod
-    def update_sqlite(device_id, lat, long, alt):
-        from models import DeviceLocation
+    def update_sqlite(lat, long):
+        from app import DeviceLocation
         from app import db
-        dl = DeviceLocation(lat=lat, long=long)
+        dl = DeviceLocation(lat=lat, long=long, timestamp=datetime.now())
         try:
             db.session.add(dl)
             db.session.commit()
+
         except Exception as e:
             logging.info('we have an error {}'.format(str(e)))
             db.session.rollback()
-            raise
         finally:
             db.session.close()
         logger.info('Query sqllite : {}'.format(DeviceLocation.query.all()))
+
 
 class LastSeenLocation(object):
     latitude = None
