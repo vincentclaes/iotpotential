@@ -69,7 +69,7 @@ class LocationHistory(object):
     def __init__(self):
         # print 'init location history'
         history = LocationHistory.read_history()
-        LocationHistory.location_history.append(history)
+        LocationHistory.location_history.extend(history)
         [LocationHistory.append_coordinates(_lat, _long) for _lat, _long in history]
         for _lat, _long in history:
             LocationHistory.append_marker(_lat, _long)
